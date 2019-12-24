@@ -53,12 +53,12 @@ public class CoinPair {
         low24hr = (String) coinPair.get("low24hr");
     }
 
-    public static void coinPairDownloder() throws IOException, InterruptedException, ParseException {
+    public static void coinPairDownloder(int fileNameExtension) throws IOException, InterruptedException, ParseException {
 //        JSONParser jsonParser = new JSONParser();
 
         updateDataFromURL();
 
-        try (OutputStream os = new FileOutputStream(new File("sd.xlsx"))) {
+        try (OutputStream os = new FileOutputStream(new File("sd" + fileNameExtension + ".xlsx"))) {
             Workbook wb = new Workbook(os, "MyApplication", "1.0");
             Worksheet ws = wb.newWorksheet("Sheet 1");
 
