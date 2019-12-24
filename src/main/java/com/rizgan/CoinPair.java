@@ -56,17 +56,16 @@ public class CoinPair {
     public static void coinPairDownloder() throws IOException, InterruptedException, ParseException {
 //        JSONParser jsonParser = new JSONParser();
 
-
         updateDataFromURL();
-
 
         try (OutputStream os = new FileOutputStream(new File("sd.xlsx"))) {
             Workbook wb = new Workbook(os, "MyApplication", "1.0");
             Worksheet ws = wb.newWorksheet("Sheet 1");
 
             writeColoumnHeaders(ws, coinPirs);
-            writeRowValues(ws, 1);
-            writeRowValues(ws, 2);
+
+            for (int i = 1; i < 300; i++)
+                writeRowValues(ws, i);
 
             //Write to the file
             wb.finish();
@@ -98,6 +97,6 @@ public class CoinPair {
         ws.value(indexOfRow, 6, Double.parseDouble(quoteVolume));
         ws.value(indexOfRow, 7, Double.parseDouble(high24hr));
         ws.value(indexOfRow, 8, Double.parseDouble(low24hr));
-        Thread.sleep(5000);
+        Thread.sleep(1000);
     }
 }
