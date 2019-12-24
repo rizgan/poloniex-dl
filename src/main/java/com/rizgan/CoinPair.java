@@ -25,6 +25,8 @@ public class CoinPair {
     static URL url;
     static String sURL;
     static JSONObject jsonObject;
+    static ArrayList<String> coinPirs;
+
 
     static void updateDataFromURL() throws IOException, ParseException {
         JSONParser jsonParser = new JSONParser();
@@ -32,19 +34,13 @@ public class CoinPair {
         sURL = "https://poloniex.com/public?command=returnTicker";
         url = new URL(sURL);
         request = url.openConnection();
+        request.setDefaultUseCaches(false);
+        request.setUseCaches(false);
         request.connect();
         object = jsonParser.parse(new InputStreamReader((InputStream) request.getContent()));
         jsonObject = (JSONObject) object;
-        request.setDefaultUseCaches(false);
-    }
 
-    public static void coinPairDownloder() throws IOException, InterruptedException, ParseException {
-//        JSONParser jsonParser = new JSONParser();
-
-        ArrayList<String> coinPirs = new ArrayList<>();
-
-        updateDataFromURL();
-
+        coinPirs = new ArrayList<>();
         coinPirs.add("USDT_BTC");
         JSONObject coinPair = (JSONObject) jsonObject.get(coinPirs.get(0));
         last = (String) coinPair.get("last");
@@ -55,6 +51,14 @@ public class CoinPair {
         quoteVolume = (String) coinPair.get("quoteVolume");
         high24hr = (String) coinPair.get("high24hr");
         low24hr = (String) coinPair.get("low24hr");
+    }
+
+    public static void coinPairDownloder() throws IOException, InterruptedException, ParseException {
+//        JSONParser jsonParser = new JSONParser();
+
+
+        updateDataFromURL();
+
 
         try (OutputStream os = new FileOutputStream(new File("sd.xlsx"))) {
             Workbook wb = new Workbook(os, "MyApplication", "1.0");
