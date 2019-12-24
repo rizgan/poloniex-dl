@@ -6,6 +6,7 @@ import java.io.*;
 
 public class Main {
 
+    static int counter = 0;
 
     public static void main(String[] args) throws IOException, InterruptedException, ParseException {
         startFetchingData();
@@ -14,12 +15,13 @@ public class Main {
 
     public static void startFetchingData() throws InterruptedException {
         try {
-            for (int i = 5; i < 10; i++) {
+            for (int i = counter; i < 10; i++) {
+                counter = i;
                 CoinPair.coinPairDownloder(i);
             }
         } catch (Exception e) {
             Thread.sleep(2000);
-            for (int i = 5; i < 10; i++) {
+            for (int i = counter; i < 10; i++) {
                 try {
                     CoinPair.coinPairDownloder(i);
                 } catch (IOException e1) {
@@ -30,7 +32,6 @@ public class Main {
                     Thread.sleep(2000);
                     e1.printStackTrace();
                     startFetchingData();
-
                 }
             }
         }
