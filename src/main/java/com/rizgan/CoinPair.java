@@ -54,17 +54,17 @@ public class CoinPair {
     }
 
     public static void coinPairDownloder(int fileNameExtension) throws IOException, InterruptedException, ParseException {
-//        JSONParser jsonParser = new JSONParser();
 
         updateDataFromURL();
 
-        try (OutputStream os = new FileOutputStream(new File("sd" + fileNameExtension + ".xlsx"))) {
+        try (OutputStream os = new FileOutputStream(new File(System.currentTimeMillis() + "-" + fileNameExtension + ".xlsx"))) {
             Workbook wb = new Workbook(os, "MyApplication", "1.0");
             Worksheet ws = wb.newWorksheet("Sheet 1");
 
             writeColoumnHeaders(ws, coinPirs);
 
-            for (int i = 1; i < 300; i++)
+            // Save every 30 min (30x60=1800)
+            for (int i = 1; i < 900; i++)
                 writeRowValues(ws, i);
 
             //Write to the file
