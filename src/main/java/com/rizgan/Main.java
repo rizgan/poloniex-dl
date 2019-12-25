@@ -15,7 +15,7 @@ public class Main {
 
     public static void startFetchingData() throws InterruptedException {
         try {
-            for (int i = counter; i < 10; i++) {
+            for (int i = counter; i < 1000; i++) {
                 counter = i;
                 CoinPair.coinPairDownloder(i);
             }
