@@ -6,12 +6,11 @@ import java.io.*;
 
 public class Main {
 
-    static int counter = 8;
+    static int counter = 0;
 
     public static void main(String[] args) throws IOException, InterruptedException, ParseException {
         startFetchingData();
     }
-
 
     public static void startFetchingData() throws InterruptedException {
         try {
