@@ -9,7 +9,10 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CoinPair {
 
@@ -53,18 +56,18 @@ public class CoinPair {
         low24hr = (String) coinPair.get("low24hr");
     }
 
-    public static void coinPairDownloder(int fileNameExtension) throws IOException, InterruptedException, ParseException {
+    public static void coinPairDownloder() throws IOException, InterruptedException, ParseException {
 
         updateDataFromURL();
 
-        try (OutputStream os = new FileOutputStream(new File(System.currentTimeMillis() + "-" + fileNameExtension + ".xlsx"))) {
+        try (OutputStream os = new FileOutputStream(new File(System.currentTimeMillis() + ".xlsx"))) {
             Workbook wb = new Workbook(os, "MyApplication", "1.0");
             Worksheet ws = wb.newWorksheet("Sheet 1");
 
             writeColoumnHeaders(ws, coinPirs);
 
             // Save every 30 min (30x60=1800)
-            for (int i = 1; i < 900; i++)
+            for (int i = 1; i < 30; i++)
                 writeRowValues(ws, i);
 
             //Write to the file
@@ -88,7 +91,12 @@ public class CoinPair {
     //Write a value to every row
     public static void writeRowValues(Worksheet ws, int indexOfRow) throws InterruptedException, IOException, ParseException {
         updateDataFromURL();
-        ws.value(indexOfRow, 0, System.currentTimeMillis());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+
+        //Unix time format
+//        ws.value(indexOfRow, 0, System.currentTimeMillis());
+        ws.value(indexOfRow, 0, dateFormat.format(date));
         ws.value(indexOfRow, 1, Double.parseDouble(last));
         ws.value(indexOfRow, 2, Double.parseDouble(lowestAsk));
         ws.value(indexOfRow, 3, Double.parseDouble(highestBid));
@@ -97,6 +105,6 @@ public class CoinPair {
         ws.value(indexOfRow, 6, Double.parseDouble(quoteVolume));
         ws.value(indexOfRow, 7, Double.parseDouble(high24hr));
         ws.value(indexOfRow, 8, Double.parseDouble(low24hr));
-        Thread.sleep(1000);
+        Thread.sleep(700);
     }
 }
