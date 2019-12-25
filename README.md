@@ -5,3 +5,7 @@ Very easy to use price downloader from Poloniex as xlsx. You can configure any c
 $java -cp poloniexdl.jar com.rizgan.Main
 
 ![Image description](https://github.com/rizgan/poloniex-dl/blob/master/sample.png)
+
+To use it in RapidMiner, fill yyyy-MM-dd HH:mm:ss in date format field of Nominal to Date.
+
+![Image description](https://github.com/rizgan/poloniex-dl/blob/master/rapidminer.png)
