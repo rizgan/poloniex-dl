@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,14 +61,17 @@ public class CoinPair {
 
         updateDataFromURL();
 
-        try (OutputStream os = new FileOutputStream(new File(System.currentTimeMillis() + ".xlsx"))) {
+        String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        String decodedPath = URLDecoder.decode(path, "UTF-8");
+
+        try (OutputStream os = new FileOutputStream(new File(decodedPath.replace("poloniexdl.jar", "") + System.currentTimeMillis() + ".xlsx"))) {
             Workbook wb = new Workbook(os, "MyApplication", "1.0");
             Worksheet ws = wb.newWorksheet("Sheet 1");
 
             writeColoumnHeaders(ws, coinPirs);
 
             // Save every 30 min (30x60=1800)
-            for (int i = 1; i < 30; i++)
+            for (int i = 1; i < 900; i++)
                 writeRowValues(ws, i);
 
             //Write to the file
@@ -105,6 +109,6 @@ public class CoinPair {
         ws.value(indexOfRow, 6, Double.parseDouble(quoteVolume));
         ws.value(indexOfRow, 7, Double.parseDouble(high24hr));
         ws.value(indexOfRow, 8, Double.parseDouble(low24hr));
-        Thread.sleep(700);
+        Thread.sleep(1000);
     }
 }
