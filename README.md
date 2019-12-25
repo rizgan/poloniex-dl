@@ -1,5 +1,7 @@
 # poloniex-dl
 
+Very easy to use price downloader from Poloniex as xlsx. You can configure any coin pair  from 98 presented in Poloniex.
+
 Time	USDT_BTC_Last	USDT_BTC_LowestAsk	USDT_BTC_HighestBid	USDT_BTC_PercentChange	USDT_BTC_BaseVolume	USDT_BTC_QuoteVolume	USDT_BTC_High24hr	USDT_BTC_Low24hr
 1,57723E+12	7237,181219	7239,831828	7234,860289	-0,00687859	16712098,59	2278,088574	7432,798424	7162,602435
 1,57723E+12	7237,181219	7239,831828	7236,972389	-0,00687859	16712098,59	2278,088574	7432,798424	7162,602435
